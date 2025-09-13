@@ -1,87 +1,59 @@
-:root {
-    --day-tile-width: 192px; /* Increased width */
-    --row-height: 44px; /* Increased height */
-    --task-menu-width: 320px; /* w-80 */
-    --sidebar-width: 256px; /* w-64 */
-    --header-height: 64px; /* h-16 */
-    --calendar-height: 224px; /* h-56 */
-}
-body {
-    font-family: 'Inter', sans-serif;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-/* Custom scrollbar */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar */
 .custom-scroll::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-.custom-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-.custom-scroll::-webkit-scrollbar-thumb {
-    background: #d1d5db; /* gray-400 */
-    border-radius: 4px;
-}
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af; /* gray-500 */
+    width: 6px;
+    height: 6px;
 }
 
+.custom-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Gantt Chart Specific Styles */
 .gantt-grid {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: var(--day-tile-width) 100%;
-    background-image: linear-gradient(to right, #f3f4f6 1px, transparent 1px); /* gray-100 */
+    background-size: 192px 44px; /* DAY_WIDTH ROW_HEIGHT */
+    background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                      linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+    z-index: 0;
 }
+
 .task-bar {
     position: absolute;
-    height: 32px;
-    top: 6px; /* (ROW_HEIGHT - 32px) / 2 */
-    color: white;
-    border-radius: 8px; /* More rounded */
+    height: 32px; /* ROW_HEIGHT - padding */
+    margin-top: 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
     padding: 0 12px;
-    line-height: 32px;
+    color: white;
     font-size: 0.875rem; /* text-sm */
-    font-weight: 500;
-    white-space: nowrap;
+    font-weight: 500; /* font-medium */
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
-.task-bar:hover {
-    filter: brightness(1.05);
-    transform: translateY(-2px);
-    z-index: 11;
-}
-.day-tile {
-    width: var(--day-tile-width);
-    flex-shrink: 0;
-}
-.day-tile .add-file-btn {
-    opacity: 0;
-    transform: translateY(4px);
-    transition: all 0.2s ease-in-out;
-}
-.day-tile:hover .add-file-btn {
-    opacity: 1;
-    transform: translateY(0);
-}
-.task-item .actions {
-    opacity: 0;
-    transform: translateX(4px);
-    transition: all 0.2s ease-in-out;
-}
-.task-item:hover .actions {
-    opacity: 1;
-    transform: translateX(0);
-}
-.file-item:hover .delete-file-btn {
-    display: inline-flex;
+
+.task-bar span {
+    pointer-events: none; /* Allow clicks to pass through to parent if needed */
 }
