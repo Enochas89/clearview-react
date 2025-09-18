@@ -6,7 +6,7 @@ const VIEW_MONTHS = 4;
 const formatDate = (date) => date.toISOString().split('T')[0];
 const diffDays = (date1, date2) => Math.round((date2 - date1) / (1000 * 60 * 60 * 24));
 
-function Calendar({ viewDate }) {
+function Calendar({ viewDate, setIsFileModalOpen, setSelectedDate }) {
   const viewStartDate = new Date(viewDate);
   viewStartDate.setDate(1);
 
@@ -24,6 +24,11 @@ function Calendar({ viewDate }) {
     tempDate.setDate(tempDate.getDate() + 1);
   }
 
+  const handleAddFileClick = (day) => {
+    setSelectedDate(day);
+    setIsFileModalOpen(true);
+  };
+
   return (
     <div id="calendar-scroll-view" className="flex-1 overflow-x-hidden">
       <div id="calendar-content" className="flex h-full" style={{ width: `${totalWidth}px` }}>
@@ -40,7 +45,7 @@ function Calendar({ viewDate }) {
               </div>
               <div className="file-list flex-grow mt-2 space-y-1.5 overflow-y-auto custom-scroll pr-1">
               </div>
-              <button className="add-file-btn mt-2 text-slate-500 hover:text-slate-800 text-xs font-medium py-1.5 rounded-lg flex items-center justify-center transition-all bg-slate-100 hover:bg-slate-200">
+              <button onClick={() => handleAddFileClick(day)} className="add-file-btn mt-2 text-slate-500 hover:text-slate-800 text-xs font-medium py-1.5 rounded-lg flex items-center justify-center transition-all bg-slate-100 hover:bg-slate-200">
                 <i className="fas fa-plus-circle mr-1.5"></i> Add File
               </button>
             </div>

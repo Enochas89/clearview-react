@@ -40,12 +40,22 @@ function Gantt({ projects, selectedProjectId, viewDate, setIsTaskModalOpen }) {
   const totalWidth = totalDays * DAY_WIDTH;
   const contentHeight = totalSlots * ROW_HEIGHT;
 
+  const handleEditTask = (taskId) => {
+    console.log('Edit task:', taskId);
+    // We can implement the edit functionality here
+  };
+
+  const handleDeleteTask = (taskId) => {
+    console.log('Delete task:', taskId);
+    // We can implement the delete functionality here
+  };
+
   return (
     <div id="gantt-area" className="flex-grow flex overflow-hidden">
       <div id="gantt-task-menu" className="w-80 border-r border-slate-200 bg-white z-10 flex flex-col flex-shrink-0">
         <div className="h-12 flex items-center justify-between px-5 border-b border-slate-200 flex-shrink-0">
           <h3 className="font-semibold text-slate-700 text-sm">Project Tasks</h3>
-          <button id="add-task-btn" className="bg-slate-800 text-white text-xs font-semibold flex items-center rounded-lg px-3 py-1.5 hover:bg-slate-900 transition-colors">
+          <button id="add-task-btn" onClick={() => setIsTaskModalOpen(true)} className="bg-slate-800 text-white text-xs font-semibold flex items-center rounded-lg px-3 py-1.5 hover:bg-slate-900 transition-colors">
             <i className="fas fa-plus mr-1.5 text-xs"></i> Add Task
           </button>
         </div>
@@ -54,8 +64,8 @@ function Gantt({ projects, selectedProjectId, viewDate, setIsTaskModalOpen }) {
             <div key={task.id} className='task-item flex items-center justify-between px-5 border-b border-slate-100 hover:bg-slate-50 transition-colors' style={{ height: `${ROW_HEIGHT}px` }}>
               <span className="task-name-span text-sm text-slate-700 truncate font-medium cursor-pointer flex-grow" data-task-id={task.id}>{task.name}</span>
               <div className="actions space-x-3">
-                <button className="edit-task-btn text-slate-400 hover:text-slate-800" data-task-id={task.id}><i className="fas fa-pencil-alt"></i></button>
-                <button className="delete-task-btn text-slate-400 hover:text-rose-500" data-task-id={task.id}><i className="fas fa-trash-alt"></i></button>
+                <button onClick={() => handleEditTask(task.id)} className="edit-task-btn text-slate-400 hover:text-slate-800" data-task-id={task.id}><i className="fas fa-pencil-alt"></i></button>
+                <button onClick={() => handleDeleteTask(task.id)} className="delete-task-btn text-slate-400 hover:text-rose-500" data-task-id={task.id}><i className="fas fa-trash-alt"></i></button>
               </div>
             </div>
           ))}

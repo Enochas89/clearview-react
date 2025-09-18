@@ -1,12 +1,12 @@
-
 import React from 'react';
+import logo from './assets/logo.png'; // Import your logo
 
 function Sidebar({ projects, selectedProjectId, setSelectedProjectId, setIsProjectModalOpen }) {
   return (
     <aside className="w-64 bg-white border-r border-slate-200 flex flex-col flex-shrink-0">
       <div className="h-16 flex items-center px-6">
-        <i className="fas fa-layer-group text-2xl text-slate-800"></i>
-        <h1 className="text-xl font-bold text-slate-800 ml-3">Construct</h1>
+        <img src={logo} alt="Logo" className="h-8 w-auto" /> {/* Use your logo */}
+        <h1 className="text-xl font-bold text-slate-800 ml-3">Clear View</h1>
       </div>
       <nav className="flex-grow p-4 space-y-4 custom-scroll overflow-y-auto">
         <div>

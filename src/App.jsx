@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import MainContent from './MainContent';
 import ProjectModal from './ProjectModal';
 import TaskModal from './TaskModal';
+import FileModal from './FileModal'; // Import the new modal
 import { supabase } from './supabaseClient';
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isFileModalOpen, setIsFileModalOpen] = useState(false); // State for the new modal
+  const [selectedDate, setSelectedDate] = useState(null); // State for the selected date
 
   useEffect(() => {
     async function getProjects() {
@@ -31,9 +34,21 @@ function App() {
   return (
     <div className="h-screen w-screen flex">
       <Sidebar projects={projects} selectedProjectId={selectedProjectId} setSelectedProjectId={setSelectedProjectId} setIsProjectModalOpen={setIsProjectModalOpen} />
-      <MainContent projects={projects} selectedProjectId={selectedProjectId} setIsTaskModalOpen={setIsTaskModalOpen} />
+      <MainContent
+        projects={projects}
+        selectedProjectId={selectedProjectId}
+        setIsTaskModalOpen={setIsTaskModalOpen}
+        setIsFileModalOpen={setIsFileModalOpen}
+        setSelectedDate={setSelectedDate}
+      />
       <ProjectModal isProjectModalOpen={isProjectModalOpen} setIsProjectModalOpen={setIsProjectModalOpen} setProjects={setProjects} />
       <TaskModal isTaskModalOpen={isTaskModalOpen} setIsTaskModalOpen={setIsTaskModalOpen} selectedProjectId={selectedProjectId} setProjects={setProjects} />
+      <FileModal
+        isFileModalOpen={isFileModalOpen}
+        setIsFileModalOpen={setIsFileModalOpen}
+        selectedDate={selectedDate}
+        selectedProjectId={selectedProjectId}
+      />
     </div>
   );
 }
